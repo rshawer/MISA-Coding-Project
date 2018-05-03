@@ -1,0 +1,112 @@
+
+import os
+import csv
+
+
+
+def main():
+    f= open("Stanford_MSA_Database.csv","r")
+    csv_f=csv.reader(f)
+    d= open("Stanford_MSA_Database.csv","r")
+    csv_d=csv.reader(d)
+
+    filename = os.path.join(os.path.dirname(__file__), 'Final.csv')
+    k= open(filename, "w", newline='')
+    csv_k=csv.writer(k,delimiter=',')
+    State=[]
+    #append all state
+    for row in csv_f:
+        State.append(row[4])
+    
+    State=State[1:]
+    unique_state=[]
+    #list of unique states
+    for i in State:
+        if i not in unique_state:
+            unique_state.append(i)
+    #key value dictionary of state to victim numbers
+    gun_assualt_dict={}
+    for k in unique_state:
+        gun_assualt_dict[k]=0
+    #add to dictionary of total deaths for whatever state
+    for state in unique_state:
+        for row in csv_d:
+            if row[4]==state:
+                    gun_assualt_dict[state]+=int(row[12])
+        d.seek(0)
+    csv_k.writerow(["State"])
+    for key in gun_assualt_dict:
+        csv_k.writerow([key])
+    #write row to CSV victim
+    csv_k.writerow(["Victims"])
+    for key in gun_assualt_dict:
+        csv_k.writerow([gun_assualt_dict[key]])
+    gun_auto={}
+    for state in unique_state:
+        gun_auto[state]=0
+    for state in unique_state:
+        for row in csv_d:
+            if row[4]==state:
+                gun_auto[state]+=int(row[29])
+        d.seek(0)
+    #write row to CSV Automatic
+    csv_k.writerow(["Automatic"])
+    for key in gun_auto:
+        csv_k.writerow([gun_auto[key]])         
+    gun_semi={}
+    for state in unique_state:
+        gun_semi[state]=0
+    for state in unique_state:
+        for row in csv_d:
+            if row[4]==state:
+                gun_semi[state]+=int(row[30])
+        d.seek(0)
+    #write row to CSV Semi
+    csv_k.writerow(["Semi"])
+    for key in gun_semi:
+        csv_k.writerow([gun_semi[key]])         
+    
+
+    gun_handgun={}
+    for state in unique_state:
+        gun_handgun[state]=0
+    for state in unique_state:
+        for row in csv_d:
+            if row[4]==state:
+                gun_handgun[state]+=int(row[27])
+        d.seek(0)
+    #write row to CSV Handgun
+    csv_k.writerow(["Handgun"])
+    for key in gun_handgun:
+        csv_k.writerow([gun_handgun[key]])         
+    
+
+    gun_shotgun={}
+    for state in unique_state:
+        gun_shotgun[state]=0
+    for state in unique_state:
+        for row in csv_d:
+            if row[4]==state:
+                gun_shotgun[state]+=int(row[25])
+        d.seek(0)
+    #write row to CSV Shotgun
+    csv_k.writerow(["Shotgun"])
+    for key in gun_shotgun:
+        csv_k.writerow([gun_shotgun[key]])         
+
+    gun_rifle={}
+    for state in unique_state:
+        gun_rifle[state]=0
+    for state in unique_state:
+        for row in csv_d:
+            if row[4]==state:
+                gun_rifle[state]+=int(row[26])
+        d.seek(0)
+    #write row to CSV Rifle
+    csv_k.writerow(["Rifle"])
+    for key in gun_rifle:
+        csv_k.writerow([gun_rifle[key]])      
+
+
+main()
+    
